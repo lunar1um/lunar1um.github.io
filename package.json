@@ -1,29 +1,25 @@
 {
-  "dependencies": {
-    "@ngrok/ngrok": "^1.5.1",
-    "@tailwindcss/cli": "^4.1.10",
-    "bootstrap-icons": "^1.13.1",
-    "particles.js": "^2.0.0",
-    "particlesjs": "^2.2.3",
-    "tailwindcss": "^4.1.10"
-  },
-  "name": "lunarr199.github.io",
+  "name": "lunar1um.github.io",
   "version": "1.0.0",
   "description": "",
-  "main": "start.js",
-  "scripts": {
-    "run": "node start.js"
+  "homepage": "https://github.com/lunar1um/lunar1um.github.io#readme",
+  "bugs": {
+    "url": "https://github.com/lunar1um/lunar1um.github.io/issues"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Lunarr199/lunarr199.github.io.git"
+    "url": "git+https://github.com/lunar1um/lunar1um.github.io.git"
   },
-  "keywords": [],
-  "author": "",
   "license": "ISC",
+  "author": "",
   "type": "commonjs",
-  "bugs": {
-    "url": "https://github.com/Lunarr199/lunarr199.github.io/issues"
+  "main": "index.js",
+  "scripts": {
+    "dev": "npx @tailwindcss/cli -i ./src/input.css -o ./src/output.css --watch"
   },
-  "homepage": "https://github.com/Lunarr199/lunarr199.github.io#readme"
+  "dependencies": {
+    "@tailwindcss/cli": "^4.1.16",
+    "live-server": "^1.2.2",
+    "tailwindcss": "^4.1.16"
+  }
 }

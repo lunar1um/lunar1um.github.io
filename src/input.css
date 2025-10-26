@@ -1,87 +1,17 @@
-@import url("https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&family=Manrope:wght@200..800&display=swap");
 @import "tailwindcss";
 
-@custom-variant dark (&:where(.dark, .dark *));
-
 @theme {
-  --animate-window-in: windowIn 0.1s ease-in-out forwards;
-  --animate-window-out: windowOut 0.1s ease-in-out forwards;
-  --animate-subtle-bounce: subtleBounce 2s ease-in-out infinite;
-  --animate-squish: squish 0.3s ease-in-out;
-  --font-jetbrains-mono: "Jetbrains Mono", monospace;
-  --font-manrope: "Manrope", sans-serif;
+    --font-monospace: "Cartograph CF", monospace;
+    --animate-wiggle: wiggle 3s ease-in-out infinite;
 
-  @keyframes windowIn {
-    0% {
-      transform: scale(0.9);
-      opacity: 0;
-    }
-    100% {
-      transform: scale(1);
-      opacity: 1;
-    }
-  }
+    @keyframes wiggle {
+        0%,
+        100% {
+            transform: rotate(-3deg) scale(1.05);
+        }
 
-  @keyframes windowOut {
-    0% {
-      transform: scale(1);
-      opacity: 1;
+        50% {
+            transform: rotate(3deg) scale(1);
+        }
     }
-    100% {
-      transform: scale(0.9);
-      opacity: 0;
-    }
-  }
-
-  @keyframes subtleBounce {
-    0%,
-    100% {
-      transform: scale(1);
-    }
-    50% {
-      transform: scale(1.1);
-    }
-  }
-
-  @keyframes squish {
-    0% {
-      transform: scale(1);
-    }
-    50% {
-      transform: scale(0.8);
-    }
-    75% {
-      transform: scale(1.02);
-    }
-    100% {
-      transform: scale(1);
-    }
-  }
-}
-
-@layer components {
-  .music-note {
-    position: absolute;
-    bottom: 0;
-    left: 50%;
-    font-size: 16px;
-    opacity: 0;
-    animation: floatNote 1.2s ease-out forwards;
-    pointer-events: none;
-  }
-
-  .window.dragging {
-    transition: none !important;
-  }
-
-  @keyframes floatNote {
-    0% {
-      transform: translateY(0) scale(1);
-      opacity: 1;
-    }
-    100% {
-      transform: translateY(-60px) scale(0.8);
-      opacity: 0;
-    }
-  }
 }

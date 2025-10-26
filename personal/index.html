@@ -1,0 +1,671 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>my page ✨</title>
+        <script src="/../static/interact.min.js"></script>
+        <style>
+            * {
+                margin: 0;
+                padding: 0;
+                box-sizing: border-box;
+            }
+
+            body {
+                font-family: "Comic Sans MS", "Arial", sans-serif;
+                background: #ffc0cb;
+                background-image:
+                    repeating-linear-gradient(
+                        45deg,
+                        transparent,
+                        transparent 10px,
+                        rgba(255, 255, 255, 0.1) 10px,
+                        rgba(255, 255, 255, 0.1) 20px
+                    ),
+                    repeating-linear-gradient(
+                        -45deg,
+                        transparent,
+                        transparent 10px,
+                        rgba(255, 255, 255, 0.05) 10px,
+                        rgba(255, 255, 255, 0.05) 20px
+                    );
+                min-height: 100vh;
+                overflow-x: hidden;
+                position: relative;
+                padding: 20px;
+            }
+
+            .element {
+                position: absolute;
+                cursor: move;
+                user-select: none;
+                width: fit-content;
+                height: fit-content;
+            }
+
+            .profile-pic {
+                top: 50px;
+                left: 100px;
+                width: 150px;
+                height: 150px;
+                border-radius: 50%;
+                background: linear-gradient(135deg, #ff6b9d, #c06c84);
+                border: 5px solid #fff;
+                box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                font-size: 60px;
+                transform: rotate(-5deg);
+                z-index: 10;
+            }
+
+            .name-tag {
+                top: 80px;
+                left: 280px;
+                background: #fff;
+                padding: 15px 25px;
+                border-radius: 15px;
+                border: 3px solid #ff6b9d;
+                box-shadow: 5px 5px 0px #ff6b9d;
+                transform: rotate(3deg);
+                z-index: 9;
+            }
+
+            .name-tag h1 {
+                font-size: 32px;
+                color: #ff6b9d;
+                margin-bottom: 5px;
+            }
+
+            .name-tag p {
+                font-size: 14px;
+                color: #666;
+            }
+
+            .sticker {
+                padding: 10px 20px;
+                background: #fff;
+                border: 2px solid #333;
+                border-radius: 20px;
+                font-weight: bold;
+                box-shadow: 3px 3px 0px rgba(0, 0, 0, 0.2);
+                font-size: 14px;
+            }
+
+            .link-btn {
+                background: linear-gradient(135deg, #667eea, #764ba2);
+                color: white;
+                padding: 12px 24px;
+                border-radius: 25px;
+                text-decoration: none;
+                display: inline-block;
+                font-weight: bold;
+                box-shadow: 4px 4px 0px rgba(0, 0, 0, 0.3);
+                transition: all 0.2s;
+                border: 3px solid #fff;
+            }
+
+            .link-btn:hover {
+                transform: translate(-2px, -2px);
+                box-shadow: 6px 6px 0px rgba(0, 0, 0, 0.3);
+            }
+
+            .info-box {
+                background: #fff;
+                padding: 20px;
+                border-radius: 12px;
+                border: 3px dashed #ff6b9d;
+                box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+                width: 200px;
+            }
+
+            .info-box h3 {
+                color: #ff6b9d;
+                margin-bottom: 10px;
+                font-size: 16px;
+            }
+
+            .info-box p {
+                font-size: 13px;
+                color: #333;
+                line-height: 1.4;
+            }
+
+            .item {
+                background: white;
+                border: 3px solid;
+                border-radius: 15px;
+                padding: 15px;
+                text-align: center;
+                box-shadow: 5px 5px 0px rgba(0, 0, 0, 0.2);
+            }
+
+            .creature-sphere {
+                font-size: 48px;
+                animation: spin3d 3s infinite linear;
+                filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.2));
+            }
+
+            @keyframes spin3d {
+                0% {
+                    transform: rotateY(0deg) rotateX(0deg);
+                }
+
+                100% {
+                    transform: rotateY(360deg) rotateX(360deg);
+                }
+            }
+
+            .spinning-thing {
+                font-size: 48px;
+                animation: spin 2s infinite linear;
+            }
+
+            @keyframes spin {
+                from {
+                    transform: rotate(0deg);
+                }
+
+                to {
+                    transform: rotate(360deg);
+                }
+            }
+
+            .bouncing-thing {
+                font-size: 48px;
+                animation: flop 1.5s infinite ease-in-out;
+                transform-origin: center bottom;
+            }
+
+            @keyframes flop {
+                0% {
+                    transform: translateY(0);
+                }
+                15% {
+                    transform: translateY(-15px) scaleY(1.1);
+                }
+                30% {
+                    transform: translateY(-20px) scaleY(0.95);
+                }
+                45% {
+                    transform: translateY(-15px) scaleY(1.1);
+                }
+                60% {
+                    transform: translateY(0) scaleY(1.2) scaleX(0.9);
+                }
+                75% {
+                    transform: translateY(0) scaleY(0.9) scaleX(1.1);
+                }
+                85% {
+                    transform: translateY(0) scaleY(1.05) scaleX(0.95);
+                }
+                100% {
+                    transform: translateY(0) scaleY(1) scaleX(1);
+                }
+            }
+
+            .wiggly-thing {
+                font-size: 48px;
+                animation: wiggle 0.5s infinite ease-in-out;
+            }
+
+            @keyframes wiggle {
+                0%,
+                100% {
+                    transform: rotate(0deg);
+                }
+
+                25% {
+                    transform: rotate(-15deg);
+                }
+
+                75% {
+                    transform: rotate(15deg);
+                }
+            }
+
+            .label {
+                font-size: 11px;
+                color: #666;
+                font-weight: bold;
+                margin-top: 5px;
+            }
+
+            .music-box {
+                top: 600px;
+                left: 350px;
+                background: #e1bee7;
+                padding: 20px;
+                border-radius: 15px;
+                border: 3px solid #9c27b0;
+                box-shadow: 4px 4px 0px #9c27b0;
+                width: 250px;
+                transform: rotate(-2deg);
+            }
+
+            .music-box h3 {
+                color: #9c27b0;
+                margin-bottom: 10px;
+                font-size: 14px;
+            }
+
+            .song-info {
+                background: white;
+                padding: 10px;
+                border-radius: 8px;
+                font-size: 12px;
+            }
+
+            .song-title {
+                font-weight: bold;
+                color: #333;
+            }
+
+            .song-artist {
+                color: #666;
+                font-size: 11px;
+            }
+
+            .random-text {
+                font-size: 12px;
+                color: #333;
+                background: #fff;
+                padding: 8px 15px;
+                border-radius: 20px;
+                border: 2px solid #333;
+                font-weight: bold;
+                box-shadow: 2px 2px 0px rgba(0, 0, 0, 0.2);
+            }
+
+            .image {
+                border-radius: 20px;
+                border: 3px solid white;
+                box-shadow: 5px 5px 0px rgba(0, 0, 0, 0.2);
+            }
+
+            @media (max-width: 767px) {
+                .element {
+                    position: relative !important;
+                    top: auto !important;
+                    left: auto !important;
+                    right: auto !important;
+                    bottom: auto !important;
+                    margin: 15px;
+                    display: inline-block;
+                }
+
+                body {
+                    padding: 10px;
+                }
+            }
+        </style>
+    </head>
+
+    <body>
+        <img
+            data-rotation="rotate(-5deg)"
+            class="element profile-pic"
+            src="./assets/cat.jpg"
+        />
+
+        <div class="element name-tag" data-rotation="rotate(3deg)">
+            <h1>lunar!!</h1>
+            <p>he/him • vibing</p>
+        </div>
+
+        <div
+            class="element sticker"
+            data-rotation="rotate(-12deg)"
+            style="
+                top: 250px;
+                left: 50px;
+                background: #ffeb3b;
+                transform: rotate(-12deg);
+            "
+        >
+            ⚠️ cool person alert!! ⚠️
+        </div>
+        <div
+            class="element sticker"
+            data-rotation="rotate(8deg)"
+            style="
+                top: 200px;
+                right: 150px;
+                background: #4caf50;
+                color: white;
+                transform: rotate(8deg);
+            "
+        >
+            very silly
+        </div>
+        <div
+            class="element sticker"
+            data-rotation="rotate(6deg)"
+            style="
+                bottom: 300px;
+                left: 200px;
+                background: #ff5722;
+                color: white;
+                transform: rotate(6deg);
+            "
+        >
+            certified dummy
+        </div>
+
+        <div
+            class="element"
+            data-rotation="rotate(-3deg)"
+            style="top: 350px; left: 120px; transform: rotate(-3deg)"
+        >
+            <a
+                href="https://discordapp.com/users/451335202342436866"
+                class="link-btn"
+                target="_blank"
+                >🗣️ discord</a
+            >
+        </div>
+        <div
+            class="element"
+            data-rotation="rotate(5deg)"
+            style="top: 420px; left: 80px; transform: rotate(5deg)"
+        >
+            <a
+                href="https://www.reddit.com/u/Lunar199"
+                class="link-btn"
+                target="_blank"
+            >
+                👻 reddit</a
+            >
+        </div>
+        <div
+            class="element"
+            data-rotation="rotate(-8deg)"
+            style="top: 300px; right: 200px; transform: rotate(-8deg)"
+        >
+            <a
+                href="https://lunar1um.github.io/"
+                class="link-btn"
+                target="_blank"
+            >
+                🏠 home</a
+            >
+        </div>
+        <div
+            class="element"
+            data-rotation="rotate(4deg)"
+            style="bottom: 200px; right: 100px; transform: rotate(4deg)"
+        >
+            <a
+                href="mailto:lunar1um@proton.me"
+                class="link-btn"
+                target="_blank"
+            >
+                📧 email me</a
+            >
+        </div>
+
+        <div
+            class="element info-box"
+            data-rotation="rotate(2deg)"
+            style="top: 430px; right: 190px; transform: rotate(2deg)"
+        >
+            <h3>about me~</h3>
+            <p>
+                i like art, music, gaming, travelling, and being able to express
+                myself.
+                <br />im just here for a good time tbh
+            </p>
+        </div>
+
+        <div
+            class="element info-box"
+            data-rotation="rotate(-4deg)"
+            style="bottom: 160px; left: 100px; transform: rotate(-4deg)"
+        >
+            <h3>status:</h3>
+            <p>
+                ✨ existing ✨<br />
+                📍 somewhere<br />
+                🎂 guess :3
+            </p>
+        </div>
+
+        <div
+            class="element item"
+            data-rotation="rotate(15deg)"
+            style="
+                top: 150px;
+                right: 50px;
+                border-color: #ff6b9d;
+                transform: rotate(15deg);
+                z-index: 5;
+            "
+        >
+            <div class="creature-sphere">👽</div>
+            <div class="label">creature</div>
+        </div>
+
+        <div
+            class="element item"
+            data-rotation="rotate(-10deg)"
+            style="
+                bottom: 400px;
+                left: 350px;
+                border-color: #4caf50;
+                transform: rotate(-10deg);
+            "
+        >
+            <div class="spinning-thing">🧀</div>
+            <div class="label">cheese!!!!!</div>
+        </div>
+
+        <div
+            class="element item"
+            data-rotation="rotate(7deg)"
+            style="
+                top: 450px;
+                right: 400px;
+                border-color: #ffeb3b;
+                transform: rotate(7deg);
+            "
+        >
+            <div class="bouncing-thing">🐟</div>
+            <div class="label">blub blub</div>
+        </div>
+
+        <div
+            class="element item"
+            data-rotation="rotate(-15deg)"
+            style="
+                bottom: 150px;
+                right: 300px;
+                border-color: #9c27b0;
+                transform: rotate(-15deg);
+            "
+        >
+            <div class="wiggly-thing">🐛</div>
+            <div class="label">wiggly boy</div>
+        </div>
+
+        <div class="element music-box" data-rotation="rotate(-2deg)">
+            <h3>🎵 listening to:</h3>
+            <div class="song-info">
+                <div class="song-title">flow</div>
+                <div class="song-artist">creo</div>
+            </div>
+        </div>
+
+        <div
+            class="element random-text"
+            style="top: 280px; left: 400px; transform: rotate(-8deg)"
+            data-rotation="rotate(-8deg)"
+        >
+            i love minecraft <3
+        </div>
+        <div
+            class="element random-text"
+            style="bottom: 250px; left: 500px; transform: rotate(12deg)"
+            data-rotation="rotate(12deg)"
+        >
+            i feel so sigma!
+        </div>
+        <div
+            class="element random-text"
+            style="top: 550px; right: 150px; transform: rotate(-5deg)"
+            data-rotation="rotate(-5deg)"
+        >
+            no thoughts head empty
+        </div>
+        <div
+            class="element random-text"
+            style="bottom: 100px; right: 300px; transform: rotate(-7deg)"
+            data-rotation="rotate(-7deg)"
+        >
+            drag & drop support !
+        </div>
+
+        <img
+            src="./assets/cornball.gif"
+            class="element image"
+            style="
+                bottom: 55px;
+                right: 50px;
+                transform: rotate(-7deg);
+                border-color: #fafad2;
+                width: 150px;
+            "
+            alt="cornball"
+            title="cornball"
+            data-rotation="rotate(-7deg)"
+        />
+
+        <img
+            src="./assets/bleh.gif"
+            class="element image"
+            style="
+                bottom: 50px;
+                left: 50px;
+                transform: rotate(9deg);
+                border-color: #e1bee7;
+                width: 200px;
+            "
+            alt="bleh"
+            title="bleh"
+            data-rotation="rotate(9deg)"
+        />
+
+        <img
+            src="./assets/have_you.gif"
+            class="element image"
+            style="
+                top: 70px;
+                right: 300px;
+                transform: rotate(-9deg);
+                border-color: #ff5722;
+                width: 250px;
+            "
+            alt="have you seen this cat"
+            title="have you seen this cat"
+            data-rotation="rotate(-9deg)"
+        />
+
+        <img
+            src="./assets/shaky.gif"
+            class="element image"
+            style="
+                bottom: 420px;
+                left: 500px;
+                transform: rotate(4deg);
+                border-color: #667eea;
+                width: 200px;
+            "
+            alt="shaky"
+            title="shaky"
+            data-rotation="rotate(4deg)"
+        />
+
+        <img
+            src="./assets/alien_camp.gif"
+            class="element image"
+            style="
+                left: 400px;
+                bottom: 50px;
+                border-color: transparent;
+                width: 500px;
+                box-shadow: none;
+            "
+            alt="aliens"
+            title="aliens"
+        />
+
+        <script>
+            addEventListener("DOMContentLoaded", () => {
+                document.querySelectorAll(".element").forEach((e) => {
+                    const computedStyle = window.getComputedStyle(e);
+                    const transform = computedStyle.transform;
+                    // get the original rotation transform to store it for using after the dragging
+                    if (transform && transform !== "none") {
+                        const values = transform.match(/matrix\(([^)]+)\)/);
+                        // ensure it has the rotate transform not just any other ones
+                        if (values) {
+                            const matrixValues = values[1]
+                                .split(",")
+                                .map(parseFloat);
+                            const [a, b] = matrixValues;
+                            const angle = Math.atan2(b, a); // radians
+                            const degrees = angle * (180 / Math.PI);
+                            e.setAttribute("data-original-transform", degrees);
+                        }
+                    }
+                });
+            });
+
+            interact(".element").draggable({
+                inertia: true,
+                modifiers: [
+                    interact.modifiers.restrictRect({
+                        restriction: "parent",
+                        endOnly: false,
+                    }),
+                ],
+                autoScroll: true,
+                listeners: {
+                    move: dragMoveListener,
+                    start: function (event) {
+                        event.target.style.zIndex = 1000;
+                    },
+                },
+            });
+
+            function dragMoveListener(event) {
+                var target = event.target;
+                var x =
+                    (parseFloat(target.getAttribute("data-x")) || 0) + event.dx;
+                var y =
+                    (parseFloat(target.getAttribute("data-y")) || 0) + event.dy;
+
+                var originalTransform =
+                    target.getAttribute("data-original-transform") || "";
+                // original rotation
+
+                var translateTransform = "translate(" + x + "px, " + y + "px)";
+                // new translate
+
+                if (originalTransform && originalTransform !== "none") {
+                    target.style.transform =
+                        translateTransform +
+                        " rotate(" +
+                        originalTransform +
+                        "deg)";
+                } else {
+                    target.style.transform = translateTransform;
+                }
+
+                target.setAttribute("data-x", x);
+                target.setAttribute("data-y", y);
+            }
+        </script>
+    </body>
+</html>
